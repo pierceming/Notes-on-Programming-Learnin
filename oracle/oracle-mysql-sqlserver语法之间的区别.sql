@@ -1,0 +1,1 @@
+-- oracle语法，mysql,sqlserver语法之间的区别

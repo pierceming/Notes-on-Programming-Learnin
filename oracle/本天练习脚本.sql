@@ -1,5 +1,4 @@
 
-
 --建立价格区间表
 create  table t_pricetable
 (
@@ -18,7 +17,6 @@ id number primary key,
 name varchar2(30)
 );
 
-drop table t_owners;
 --业主表
 create table t_owners
 (
