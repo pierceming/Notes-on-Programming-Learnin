@@ -5,13 +5,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-@Service
+//@Service
 public class UserService {
 	
-	@Autowired
+	//@Autowired
 	private UserDao userDao;
 	
-	@Transactional
+	//@Transactional
 	public void insertUser(){
 		userDao.insert();
 		//otherDao.other();xxx

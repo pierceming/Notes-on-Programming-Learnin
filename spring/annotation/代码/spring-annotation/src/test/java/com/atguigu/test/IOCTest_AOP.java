@@ -3,7 +3,6 @@ package com.atguigu.test;
 import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import com.atguigu.aop.MathCalculator;
 import com.atguigu.bean.Boss;
 import com.atguigu.bean.Car;
 import com.atguigu.bean.Color;
@@ -22,9 +21,9 @@ public class IOCTest_AOP {
 		//1、不要自己创建对象
 //		MathCalculator mathCalculator = new MathCalculator();
 //		mathCalculator.div(1, 1);
-		MathCalculator mathCalculator = applicationContext.getBean(MathCalculator.class);
-		
-		mathCalculator.div(1, 0);
+//		MathCalculator mathCalculator = applicationContext.getBean(MathCalculator.class);
+//
+//		mathCalculator.div(1, 0);
 		
 		applicationContext.close();
 	}

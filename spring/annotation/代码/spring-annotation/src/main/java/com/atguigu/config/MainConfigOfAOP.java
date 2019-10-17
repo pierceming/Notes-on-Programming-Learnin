@@ -12,9 +12,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
-import com.atguigu.aop.LogAspects;
-import com.atguigu.aop.MathCalculator;
-
 /**
  * AOP：【动态代理】
  * 		指在程序运行期间动态的将某段代码切入到指定方法指定位置进行运行的编程方式；
@@ -195,15 +192,15 @@ import com.atguigu.aop.MathCalculator;
 public class MainConfigOfAOP {
 	 
 	//业务逻辑类加入容器中
-	@Bean
-	public MathCalculator calculator(){
-		return new MathCalculator();
-	}
-
-	//切面类加入到容器中
-	@Bean
-	public LogAspects logAspects(){
-		return new LogAspects();
-	}
+//	@Bean
+//	public MathCalculator calculator(){
+//		return new MathCalculator();
+//	}
+//
+//	//切面类加入到容器中
+//	@Bean
+//	public LogAspects logAspects(){
+//		return new LogAspects();
+//	}
 }
 

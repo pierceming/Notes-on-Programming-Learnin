@@ -3,7 +3,6 @@ package com.atguigu.test;
 import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import com.atguigu.aop.MathCalculator;
 import com.atguigu.bean.Boss;
 import com.atguigu.bean.Car;
 import com.atguigu.bean.Color;

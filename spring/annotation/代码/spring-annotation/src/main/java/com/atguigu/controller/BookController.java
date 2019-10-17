@@ -7,7 +7,7 @@ import com.atguigu.service.BookService;
 
 @Controller
 public class BookController {
-	
+
 	@Autowired
 	private BookService bookService;
 
