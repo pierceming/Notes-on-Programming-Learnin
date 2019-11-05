@@ -1,0 +1,26 @@
+//定义一个函数, 参数类型是Int, 返回一个元组(ActorSystem, Int), 后面的{}是函数体
+val startService: Int => (ActorSystem, Int) = { actualPort =>
+      doCreateActorSystem(name, host, actualPort, conf, securityManager)
+    }
+Utils.startServiceOnPort(port, startService, conf, name)
+
+val func: Int => String = { x => x.toString }
+
+val func1 = (x: Int) => x.toString
+
+
+
+##########################
+scala> val func = (x: Int, y: Double) => (y, x)
+func: (Int, Double) => (Double, Int) = <function2>
+
+scala> func(1, 2.2)
+res103: (Double, Int) = (2.2,1)
+
+//用最上面的一种方法实现函数的定义
+scala> val func2:(Int, Double) => (Double, Int) = {(x,y) => (y, x)}
+func2: (Int, Double) => (Double, Int) = <function2>
+
+scala> func2(2, 3.0)
+res104: (Double, Int) = (3.0,2)
+
