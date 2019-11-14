@@ -52,7 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             t.ID as id,
             t.OBJECT_ID as objectId,
             t.name as name,
-            t.CHS_NAME as #{item.chsName},
+            t.CHS_NAME as chsName,
             t.AGE as age,
             a.element_id as elementId,
             a.code as code,
@@ -61,9 +61,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             T_TOOL t
             INNER JOIN t_attribute a ON t.OBJECT_ID = a.element_id
             AND t.ID IN
-        <foreach item="item" collection="tools" separator="," open="(" close=")" index="">
-             #{item.id, jdbcType=NUMERIC}
+         <foreach item="item" collection="tools" separator="," open="(" close=")" index="">
+            #{item.id, jdbcType=NUMERIC}
         </foreach>
+        ) t inner JOIN (
+        <foreach item="item" collection="tools" separator="union" open="" close="" index="">
+          SELECT #{item.id} as id, #{item.salesId} as salesId from dual
+        </foreach>
+        ) s where t.id = s.id
     </select>
 
 </mapper>
