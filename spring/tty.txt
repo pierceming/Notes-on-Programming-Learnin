@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysTestMapper">
+
+    <!-- 一对多关联查询 -->
+    <!--
+    【resultMap：将整个查询结果映射到com.mybatis.pojo.User这个实体中】
+    【id：唯一的标识，后面的select语句中resultMap的值】
+    【type：映射的pojo对象，映射到com.mybatis.pojo.User这个实体中】
+    【autoMapping：autoMapping="true"自动映射，放在id或type后面】
+    结构：<resultMap id="唯一的标识" type="映射的pojo对象">
+    -->
+    <resultMap type="com.ruoyi.system.domain.Tool" id="getToolsMap">
+        <!--
+        【id：查询列中的唯一标识，User中的唯一标识】
+        结构：<id column="表的主键字段或查询语句中的别名字段" jdbcType="字段类型" property="映射pojo对象的主键属性" />
+        【column：与数据库表对应的字段，property：与实体对应的属性，jdbcType可以不用写会自动映射】
+        结构：<result column="表的一个字段" jdbcType="字段类型" property="映射到pojo对象的一个属性"/>
+        【假如数据库中t_User表中的主键为user_id,而实体属性名称为userId，则这个配置应为
+        <id column="user_id" property="userId"/>，result也是一样，类似hibernate实体映射文件配置】
+        -->
+        <id column="id" property="id"/>
+        <result column="objectId" property="objectId"/>
+        <result column="name" property="name"/>
+        <result column="chsName" property="chsName"/>
+        <result column="age" property="age"/>
+        <!--
+        【collection：对关联查询到的多条记录映射到集合中】
+        【property：将关联查询到的多条记录映射到com.mybatis.pojo.User类的roles属性中】
+        【ofType：指定映射的集合属性中pojo的类型，roles属于com.mybatis.pojo.Role对象】
+        【autoMapping：autoMapping="true"自动映射，放在property或ofType后面】
+        结构：<collection property="pojo的集合属性" ofType="集合中的pojo对象">
+        -->
+        <collection property="attributes" ofType="com.ruoyi.system.domain.Attribute">
+            <!--
+            【Role实体映射对应t_role表】
+            【id：集合中pojo对象对应的表的主键字段】
+            结构：<id column="集合中pojo对象对应的表的主键字段" jdbcType="字段类型" property="集合中pojo对象的主键属性" />
+            【column：与数据库表对应的字段，property：与实体对应的属性】
+            结构：<result column="可以为任意表的字段" jdbcType="字段类型" property="集合中的pojo对象的属性" />
+            -->
+            <id column="elementId" property="elementId"/>
+            <result column="code" property="code"/>
+            <result column="value" property="value"/>
+        </collection>
+    </resultMap>
+
+    <select id="getTools" resultMap="getToolsMap">
+        SELECT
+            t.ID as id,
+            t.OBJECT_ID as objectId,
+            t.name as name,
+            t.CHS_NAME as chsName,
+            t.AGE as age,
+            a.element_id as elementId,
+            a.code as code,
+            a.attribute_value as value
+        FROM
+            T_TOOL t
+            INNER JOIN t_attribute a ON t.OBJECT_ID = a.element_id
+            AND t.ID IN
+         <foreach item="item" collection="tools" separator="," open="(" close=")" index="">
+            #{item.id, jdbcType=NUMERIC}
+        </foreach>
+        ) t inner JOIN (
+        <foreach item="item" collection="tools" separator="union" open="" close="" index="">
+          SELECT #{item.id} as id, #{item.salesId} as salesId from dual
+        </foreach>
+        ) s where t.id = s.id
+    </select>
+
+</mapper>
